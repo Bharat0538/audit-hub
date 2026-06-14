@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: audit-hub
+  datasource:
+    url: jdbc:postgresql://localhost:5432/audithub
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+  data:
+    cassandra:
+      contact-points: 127.0.0.1
+      port: 9042
+      local-datacenter: datacenter1
+      keyspace-name: audithub
+      schema-action: create_if_not_exists
+      repositories:
+        enabled: false
+    redis:
+      host: localhost
+      port: 6379
+      repositories:
+        enabled: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        acks: all
+        enable.idempotence: true
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: audithub-storage-service
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: "*"
+
+logging:
+  level:
+    root: INFO
+    in.audithub: DEBUG
+    org.springframework.security: INFO
+    org.apache.kafka: WARN
+
+audithub:
+  enabled: true
+  api-key: ah_live_placeholder_key
+  application-id: 00000000-0000-0000-0000-000000000000
+  base-url: http://localhost:8080
+  async: true
+  batch-size: 5
+  flush-interval-ms: 500
+  timeout-seconds: 5
+  retry-max-attempts: 3
