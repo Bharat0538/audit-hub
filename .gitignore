@@ -1,0 +1,35 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.next
+release.properties
+release-versions.xml
+
+# Node.js / Vite
+node_modules/
+dist/
+.env
+.env*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pnpm-error.log*
+*.tgz
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Test Reports
+test_report.pdf
